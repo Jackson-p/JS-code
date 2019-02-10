@@ -2,7 +2,7 @@ import { HashRouter } from './hash';
 import { HistoryRouter } from './history';
 import { ROUTELIST } from './routeList';
 //路由模式
-const MODE = 'hash';  
+const MODE = 'history';  
 
 class WebRouter {
   constructor({ mode = 'hash', routeList }) {
@@ -24,3 +24,14 @@ const webRouter = new WebRouter({
   routeList: ROUTELIST
 });
 
+document.querySelector('.btn-list').addEventListener('click', e => {
+    const event = e || window.event;
+    if (event.target.tagName === 'LI') {
+      const url = event.target.dataset.url;
+      !url.indexOf('/') ? webRouter.push(url) : webRouter.go(url);
+    }
+  });
+  
+document.querySelector('.replace-btn').addEventListener('click', e => {
+    webRouter.replace('/');
+});
